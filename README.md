@@ -1,8 +1,18 @@
-# redis-stream-store [![build status][1]][2]
+# redis-stream-store
 
 Store streams in redis
 
 ## Example
+
+``` js
+var store = require("redis-stream-store")(6379, "localhost", "prefix")
+store.get("streamName", function (stream) {
+    stream.write("data goes in")
+    stream.on("data", function (data) {
+        console.log("data comes out!", data)
+    })
+})
+```
 
 ## Installation
 
@@ -10,7 +20,7 @@ Store streams in redis
 
 ## Tests
 
-`make test`
+`node test.js`
 
 ## Contributors
 
