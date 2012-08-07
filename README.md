@@ -6,7 +6,7 @@ Store streams in redis
 
 ``` js
 var store = require("redis-stream-store")(6379, "localhost", "prefix")
-store.get("streamName", function (stream) {
+store.get("streamName", function (err, stream) {
     stream.write("data goes in")
     stream.on("data", function (data) {
         console.log("data comes out!", data)
