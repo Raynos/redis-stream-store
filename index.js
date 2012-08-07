@@ -30,7 +30,9 @@ function createRedisStream(client, namespace, streamName, callback) {
         data = data.toString()
         if (data === "1") {
             connected = true
-            callback(null, stream)
+            callback(null, {
+                stream: stream
+            })
             return
         }
         if (!connected) {

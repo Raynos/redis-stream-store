@@ -4,11 +4,11 @@ var RedisStore = require("./")
 
 redisStore.get("streamName", function (err, streamOne) {
     redisStore.get("streamName", function (err, streamTwo) {
-        streamOne.on("data", function (data) {
+        streamOne.stream.on("data", function (data) {
             assert.equal(data, "foo")
-            streamOne.end()
-            streamTwo.end()
+            streamOne.stream.end()
+            streamTwo.stream.end()
         })
-        streamTwo.write("foo")
+        streamTwo.stream.write("foo")
     })
 })
