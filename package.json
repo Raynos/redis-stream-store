@@ -1,0 +1,39 @@
+{
+  "name": "redis-stream-store",
+  "version": "0.0.1",
+  "description": "Store streams in redis",
+  "keywords": [],
+  "author": "Raynos <raynos2@gmail.com>",
+  "repository": "git://github.com/Raynos/redis-stream-store.git",
+  "main": "index",
+  "homepage": "https://github.com/Raynos/redis-stream-store",
+  "contributors": [
+    {
+      "name": "Jake Verbaten"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/Raynos/redis-stream-store/issues",
+    "email": "raynos2@gmail.com"
+  },
+  "dependencies": {
+    "redis-stream": "~0.1.0",
+    "event-stream": "~2.1.9",
+    "ap": "~0.1.0"
+  },
+  "devDependencies": {
+    "testling": "git://github.com/Raynos/testling#master",
+    "testem": "git://github.com/Raynos/testem#master",
+    "sinon": "git://github.com/Raynos/Sinon.JS.git",
+    "tap": "0.2.5"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/Raynos/redis-stream-store/raw/master/LICENSE"
+    }
+  ],
+  "scripts": {
+    "test": "make node-test"
+  }
+}
