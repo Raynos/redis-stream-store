@@ -14,10 +14,39 @@ function createRedisStore(port, host, namespace) {
 
 function createRedisStream(client, namespace, streamName, callback) {
     streamName = namespace + ":" + streamName
-    var writableStream = client.stream("publish", streamName)
-        , readableStream = client.stream("subscribe")
-    
-    readableStream.write(streamName)
+    var publish = client.stream("publish", streamName)
+        , subscribe = client.stream("subscribe")
+        , subscribeStripper = es.mapSync(stripJunk)
+        , connected = false
+        , stream = es.duplex(publish, subscribeStripper)
 
-    callback(es.duplex(writableStream, readableStream))
+    subscribe.pipe(subscribeStripper)
+    
+    subscribe.write(streamName)
+
+    publish.on("end", end)
+
+    function stripJunk(data) {
+        data = data.toString()
+        if (data === "1") {
+            connected = true
+            callback(stream)
+            return
+        }
+        if (!connected) {
+            return
+        }
+        if (data === "message") {
+            return
+        }
+        if (data === streamName) {
+            return
+        }
+        return data
+    }
+
+    function end() {
+        publish.end()
+        subscribe.end()
+    }
 }
