@@ -1,5 +1,6 @@
 var Redis = require("redis-stream")
-    , es = require("event-stream")
+    , mapSync = require("event-stream").mapSync
+    , duplex = require("duplexer")
     , partial = require("ap").partial
 
 module.exports = createRedisStore
@@ -16,9 +17,10 @@ function createRedisStream(client, namespace, streamName, callback) {
     streamName = namespace + ":" + streamName
     var publish = client.stream("publish", streamName)
         , subscribe = client.stream("subscribe")
-        , subscribeStripper = es.mapSync(stripJunk)
+        , subscribeStripper = mapSync(stripJunk)
         , connected = false
-        , stream = es.duplex(publish, subscribeStripper)
+        , stream = duplex(publish, subscribeStripper)
+        , count = 0
 
     subscribe.pipe(subscribeStripper)
     
@@ -26,22 +28,22 @@ function createRedisStream(client, namespace, streamName, callback) {
 
     publish.on("end", end)
 
+    return stream
+
     function stripJunk(data) {
+        count++
+        if (count !== 3) {
+            return
+        }
+        count = 0
         data = data.toString()
         if (data === "1") {
             connected = true
-            callback(null, {
-                stream: stream
-            })
+            stream.emit("open")
+            stream.open = true
             return
         }
         if (!connected) {
-            return
-        }
-        if (data === "message") {
-            return
-        }
-        if (data === streamName) {
             return
         }
         return data
