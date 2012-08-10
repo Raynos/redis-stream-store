@@ -1,6 +1,6 @@
 {
   "name": "redis-stream-store",
-  "version": "0.3.0",
+  "version": "0.1.0",
   "description": "Store streams in redis",
   "keywords": [],
   "author": "Raynos <raynos2@gmail.com>",
@@ -33,6 +33,5 @@
       "url": "http://github.com/Raynos/redis-stream-store/raw/master/LICENSE"
     }
   ],
-  "scripts": {
-  }
+  "scripts": {}
 }
