@@ -19,7 +19,8 @@
   "dependencies": {
     "redis-stream": "~0.1.0",
     "event-stream": "~2.1.9",
-    "ap": "~0.1.0"
+    "ap": "~0.1.0",
+    "duplexer": "0.0.1"
   },
   "devDependencies": {
     "testling": "git://github.com/Raynos/testling#master",
