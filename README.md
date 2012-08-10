@@ -6,12 +6,12 @@ Store streams in redis
 
 ``` js
 var store = require("redis-stream-store")(6379, "localhost", "prefix")
-store.get("streamName", function (err, data) {
-    var stream = data.stream
+var stream = store.get("streamName")
+stream.on("open", funciton () {
     stream.write("data goes in")
-    stream.on("data", function (data) {
-        console.log("data comes out!", data)
-    })
+})
+stream.on("data", function (data) {
+    console.log("data comes out!", data)
 })
 ```
 
