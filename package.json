@@ -1,6 +1,6 @@
 {
   "name": "redis-stream-store",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Store streams in redis",
   "keywords": [],
   "author": "Raynos <raynos2@gmail.com>",
